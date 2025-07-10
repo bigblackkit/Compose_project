@@ -1,7 +1,7 @@
 FROM python:3.12-alpine
 
 # Установка зависимостей (flask и зависимости SSL + DNS)
-RUN pip install --no-cache-dir flask
+RUN pip install --no-cache-dir flask gunicorn
 
 # Создание директории приложения
 WORKDIR /app
@@ -13,4 +13,4 @@ COPY app.py .
 EXPOSE 5000
 
 # Команда запуска
-CMD ["python", "app.py"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
