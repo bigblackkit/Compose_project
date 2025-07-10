@@ -1,0 +1,23 @@
+services:
+  nginx:
+    build:
+      context: .
+    ports:
+      - "7777:80"
+    depends_on:
+      - app1
+      - app2
+
+  app1:
+    build: ./app
+    environment:
+      - APP_NAME=App1
+    ports:
+      - "5001:5000"
+
+  app2:
+    build: ./app
+    environment:
+      - APP_NAME=App2
+    ports:
+      - "5002:5000"
